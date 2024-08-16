@@ -1,0 +1,11 @@
+STEPS TO DOWNLOAD REACT JS SETUP:
+
+1). Download Node Js.
+2). Download Visual Studio Code.
+3). Download React Developer Tools Extension in Chrome (Its a plus).
+
+Download these extensions in VS code:
+
+1). ES7 React/Redux/GraphQL/React-Native snippets
+2). Thunder Client
+3). Auto Rename Tag
