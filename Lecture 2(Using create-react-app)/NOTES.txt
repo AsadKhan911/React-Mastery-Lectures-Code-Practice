@@ -1,0 +1,23 @@
+What is create-react-app: Create React App (CRA) is a tool developed by Facebook that helps you set up a new React.js project with a standardized and optimized project structure. It's designed to streamline the process of creating a React application by providing a pre-configured build setup. This way, developers can focus more on writing code and building features rather than spending time on configuring build tools.
+
+Installing CRA:
+
+*). Type in console: npm install -g create-react-app
+OR
+*). Type in console: npx install -g create-react-app
+
+Difference: With npm the package is installed permanently , while with npx the package is installed one time and then you have to install or run the command again for new project.
+
+->What are PROPS in React: In React.js, "props" is short for "properties," and it's a way to pass data from one React component to another. You can think of props as the inputs that a component receives. They allow you to send information from a parent component to a child component.
+
+Here's a simple breakdown in easy words:
+
+Parent-Child Communication: Imagine you have a parent component and a child component. The parent wants to share some information with the child.
+
+Props as Messengers: Props are like messengers carrying information from the parent to the child. The parent creates the data and hands it over to the child component through props.
+
+Read-Only Data: Once the child receives the props, it can read the data, but it cannot change it. Props are read-only and ensure a one-way flow of information.
+
+-> What is STATE in React: In React.js, "state" is a JavaScript object that represents the current condition or data of a component. Unlike props, which are passed from a parent to a child component and are immutable (read-only), state is internal to a component and can be changed.
+
+-> When we say that "state is internal to a component" in React, it means that the data stored in the state belongs specifically to that particular component. This data is not directly accessible or modifiable by other components. Each React component can manage its own state independently.

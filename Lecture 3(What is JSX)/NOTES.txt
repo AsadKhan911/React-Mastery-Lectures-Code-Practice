@@ -1,0 +1,30 @@
+What is JSX:  Imagine JSX as a special way to write your HTML in React that makes it easier for JavaScript to understand. It's like writing your HTML with a sprinkle of JavaScript magic.
+
+-> Normally, HTML and JavaScript are separate. But in React, we use JSX, which lets us write HTML-like code directly inside our JavaScript files. It's like embedding your HTML into your JavaScript.
+
+E.G: const myElement = <h1>Hello, React!</h1>;
+
+This line creates a variable called myElement with an <h1> tag inside. It may look like HTML, but it's actually JSX.
+
+-> With JSX, you can easily mix JavaScript with your HTML. Just put your JavaScript code inside curly braces {}. For example, if you have a variable name, you can include it in your JSX:
+
+E.G: const name = "John";
+const greeting = <p>Hello, {name}!</p>;
+
+Here, the value of the name variable gets inserted into the JSX, making it more dynamic.
+
+COMPONENTS: In React, we build reusable pieces of the user interface called components. JSX makes it simple to create these components. Here's a basic example:
+
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+You just define a function that returns JSX, and it becomes a component.
+
+One cool thing about JSX is that it looks a lot like regular HTML. If you know HTML, JSX feels familiar. This makes it easy for web developers to start using React.
+
+REPLACEMENTS OF KEYWORDS:
+
+In JSX, there are a few replacements for certain HTML attributes and element names to avoid conflicts with reserved JavaScript keywords.
+
+JSX fragments: As we know when we are making returning a component in a function then we have to wrap the whole code (which is being returned) in an opening and closing brackets , but in case we have to return two seperate tags containing opening and closing brackets so we will use JSX fragments. Syntax: <>CODE</>
