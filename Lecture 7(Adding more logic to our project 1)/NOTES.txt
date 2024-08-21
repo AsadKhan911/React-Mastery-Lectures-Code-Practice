@@ -1,0 +1,15 @@
+NOTE: Code in lecture 4.
+
+LOGIC 1: <p>Your text contains {text.trim() === "" ? "0" : text.split(" ").length} words and {text.length} characters</p>
+EXPLAINATION:
+In this version, we added a check to see if the text is empty or only spaces using text.trim() === "". If it is, we display "0" words. Otherwise, we count the words as before.(TERNARY OPERATOR).
+
+-> In JavaScript, the == operator performs type coercion before comparing two values. This means it attempts to convert the operands to the same type before making the comparison. For example, " " (a string consisting of spaces) and "" (an empty string) would be considered equal with the == operator because they get coerced to the same value.
+
+On the other hand, the === operator (strict equality operator) compares both the value and the type of the operands. It does not perform type coercion. Therefore, " " and "" would not be considered equal with ===.
+
+LOGIC 2: <h5>Time taken to read the text</h5>
+      <p>{0.025 * text.split(" ").length} minutes</p>
+
+EXPLAINATION: Time taken to read 100 words = 25 seconds
+To find the time taken to read one word: total time/no of words = 25/100 = 0.25 seconds, and text.split(" ").length are no of words. But we take 1 words = 0.025 second.

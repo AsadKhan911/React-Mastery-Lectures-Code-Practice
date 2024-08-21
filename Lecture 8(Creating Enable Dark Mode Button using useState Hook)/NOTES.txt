@@ -1,0 +1,10 @@
+NOTE: Code in lecture 4 and we are working on About.js component in this lecture.
+
+To set a style of any container or item we can pass a javascript object to that element style. And defined an object before return like this:
+let containerStyle = { //javascript object passed to the style of container
+  color: 'white',
+  backgroundColor: 'black'
+}
+
+<div className='container' style={containerStyle}>
+

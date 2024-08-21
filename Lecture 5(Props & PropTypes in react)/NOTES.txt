@@ -1,0 +1,106 @@
+NOTE: THE CODE HAS DONE IN THE PREVIOUS LECTURE FILE.(LECTURE 4)
+Before going for props we will first learn about 'export default' and 'export' :
+
+1). export default: Suppose we have two files of js in same folder and we have initalize a variable in that folder and write export default with that variable. Its mean it is exporting by default.
+
+-> So in the next js file when we write import variable from './file1'(write name of file)
+
+-> So this file will import that only variable which we have export by default. nothing except that.
+
+EG: File 1: let a = "ASad"
+let b = "Khan"
+let c = "Ali"
+let d = "Ahmed"
+
+export default d;
+
+File 2: import ui from './node1.mjs'
+console.log(ui)
+
+2). export: If we write in file 1 only export with any thing or any variable,function etc. Then the second js file will not import that variable just like default export. For that we have to change the code like this:
+
+file1: let a = "ASad"
+let b = "Khan"
+let c = "Ali"
+let d = "Ahmed"
+
+export default d;
+export {a}
+export {b}
+export {c}
+
+fil2: import d , {a,b,c} from './node1.mjs'
+console.log(d)
+console.log(a)
+console.log(b)
+console.log(c)
+
+PROPS: Suppose we have a component named navbar and that contains a code for a navbar. And I want to use this navbar component in different website but the issue is I want the title of that navbar differently in every website so for that I initialize that title as a variable and in my app.js when i add that component i will call it by className and write the title of my choice. This is basically a prop.
+
+EG: export default function Navbar(props) {
+  return (
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <div className="container-fluid">
+      <a className="navbar-brand" href="/">{props.title}</a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+)}
+This is a navbar component and i passed an argument 'props' and in title i give it a class by {props.title}
+
+App.js: function App() {
+  return (
+    <>
+      <Navbar title="Dictionary" />
+    </>
+  );
+}
+
+Now in app.js file i pass the navbar and i give the title name dictionary by give name to the title which is the class for that tag.
+
+-> PropTypes: In React, when you create components, you often need to pass data to them. We call this data "props" (short for properties). Think of props like parameters you pass to a function. PropTypes is a feature in React that allows you to specify what type of data (like a string, number, array, etc.) a prop should be.
+
+Why use PropTypes?
+Documentation: PropTypes help you document your components. They tell other developers (including future you) what kind of data a component expects to receive. This makes it easier for everyone to understand and use your components correctly.
+
+Catch Bugs Early: PropTypes can help you catch bugs early in development. If you accidentally pass the wrong type of data to a component, React will warn you in the console. This helps you find and fix problems before they cause bigger issues.
+
+Code Maintenance: PropTypes make your code easier to maintain. By clearly defining the types of props your components expect, you make it easier for yourself and others to work with your code later on.
+
+How to use PropTypes?
+Import PropTypes: First, you need to import PropTypes from the 'prop-types' package. This package comes built-in with React, so you don't need to install it separately.
+
+Define PropTypes: Next, you define PropTypes for your component by assigning a propTypes property to your component. Inside this property, you specify the types of props your component expects.
+
+Specify Prop Types: For each prop, you specify its type using PropTypes. You can also specify if a prop is required or not.
+
+SYNTAX: import React from 'react';
+import PropTypes from 'prop-types';
+
+const MyComponent = ({ name, age }) => {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>Age: {age}</p>
+    </div>
+  );
+};
+
+MyComponent.propTypes = {
+  name: PropTypes.string, 
+  age: PropTypes.number, 
+};
+
+export default MyComponent;
+
+NOTE: If you pass wrong type react won't give error in compiling but console does.
+
+-> Default Props: 
+Default props are used to provide default values for props in a React component. They specify what values props should have if they are not explicitly provided when the component is used. Default props are useful in such scenarios:
+
+If a prop is optional and not provided when using the component, you can specify a default value for it using default props. This ensures that the component behaves as expected even if certain props are not passed.
+
+-> isRequired: This will generate an error when we mark any prop isRequired but we havnot define it. It will generate this error.
+ERROR: Warning: Failed prop type: The prop `home` is marked as required in `Navbar`, but its value is `undefined`.
+
+

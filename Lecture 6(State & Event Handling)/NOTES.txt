@@ -1,0 +1,50 @@
+NOTE: CODE IN LECTURE 4 FILE.
+State in React is like a piece of memory that a component can use to remember things.
+
+Imagine you're making a simple calculator app. You need to remember two numbers: the number the user entered first and the number they entered second. You also need to remember the result of adding these two numbers together.
+
+In React, you can use state to store these pieces of information. Here's how it works:
+
+Initializing State: When you create a component, you can set up its initial state. For our calculator example, you would set the initial state to have values for the first number, the second number, and the result, all set to zero.
+
+Updating State: As the user interacts with your app, the state can change. For example, when the user enters a number into the calculator, you update the state to remember that number.
+
+Reacting to State Changes: Whenever the state changes, React automatically re-renders the component to reflect those changes. So, if the user enters a new number, React will update the display to show that new number.
+
+That's the basic idea of state in React. It's like a memory bank for your component, allowing it to remember things and update its display accordingly.
+
+useState in React:
+In React, useState is a built-in hook that allows functional components to manage state.
+
+Before hooks were introduced, state could only be used in class components. However, with the introduction of hooks in React 16.8, functional components gained the ability to use state and other React features.
+
+eg: const [text , setText] = useState("Enter text here")
+
+how this line works: ("Enter text here"): This is the initial value of the state variable text. When the component first renders, text will be set to "Enter text here". This is the default value that the text state will have until it's updated by the component.
+
+const [text, setText]: This part is a bit more complex because it uses array destructuring syntax in JavaScript. Essentially, it's creating two variables (text and setText) and assigning them values returned by useState.
+
+text: This variable holds the current value of the state. Initially, it's set to "Enter text here" (the initial value provided to useState).
+setText: This is a function that allows you to update the state variable text. When you call setText with a new value, it updates the text state variable and triggers a re-render of the component with the new value.
+So, in simple terms, this line of code initializes a piece of state called text with an initial value of "Enter text here", and provides a function setText that allows you to update the text state variable later in your component.
+
+-> 
+    const handleOnChange = (event) => { //onChange means when user will try to change the text , this func will run.
+        setText(event.target.value)
+    }
+
+this function will run when user will try to change the input of the textarea which is a state variable data stored in textarea, So with this event.target.value the user will able to changed the text of the text area. Thats why we put it in the setText state. If we dont do this the user will not able to change the text. As the state variable text is given to it as a value.
+
+ const handleUpperCaseClick = () =>{
+        console.log("upperCase clicked");
+        let newText = text.toUpperCase();
+        setText(newText) //here the text variable value has been changed by setText. But the data will be remain in the text state. Means if we want to access the text we will always access through the text variable. The setText is just to modify or manipulate the inside of text variable. 
+    }
+
+
+
+
+
+
+
+
