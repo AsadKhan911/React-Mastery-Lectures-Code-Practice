@@ -1,0 +1,45 @@
+React Router is a popular library in the React ecosystem that helps you handle routing in your single-page applications (SPAs). Here's a breakdown of what React Router does and why it's useful:
+
+Handling Routing: In a single-page application, different "pages" or views are typically displayed based on the URL. React Router allows you to define routes for different URLs and specify which components should be rendered when the URL matches a particular route.
+
+HOW THIS ROUTER CODE WORKS?
+  <Router>
+        <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
+        <Alert alert={alert}/>
+        <div className="container my-3">
+          <Routes>
+            <Route path="/about" element={<About/>} />
+            <Route path="/home" element={<TextForm showAlert={showAlert} heading="Enter your text to Analyse below" mode={mode}/>} />
+          </Routes>
+        </div>
+      </Router>
+
+Sure, let's break down the code in easy words:
+
+<Router>: This is the root component provided by React Router. It wraps around your entire application and provides the routing functionality. Think of it as the container that manages all the routing logic.
+
+<Navbar> and <Alert>: These are components from your application. They are rendered within the <Router> component, which means they are part of your application's UI and will be displayed on every page.
+
+<div className="container my-3">: This is a regular <div> element with some Bootstrap classes for styling. It serves as a container for the content of your application.
+
+<Routes>: This is a special component provided by React Router for defining your routes. Inside <Routes>, you define all the routes for your application using <Route> components.
+
+<Route path="/about" element={<About/>} />: This <Route> component defines a route for the "/about" URL path. When the URL matches "/about", the <About/> component will be rendered inside the <div className="container my-3">.
+
+<Route path="/home" element={<TextForm showAlert={showAlert} heading="Enter your text to Analyse below" mode={mode}/>} />: Similarly, this <Route> component defines a route for the "/home" URL path. When the URL matches "/home", the <TextForm> component will be rendered inside the <div className="container my-3">. Additionally, it passes some props (showAlert, heading, and mode) to the <TextForm> component.
+
+Overall, this code sets up routing for your application using React Router. It defines two routes ("/about" and "/home") and specifies which components should be rendered when those routes are matched. The <Navbar> and <Alert> components are rendered on every page, while the content inside <Routes> changes based on the current URL.
+
+HOW LINK TO WORKS?
+          <Link className="navbar-brand" to="/">{props.title}</Link>
+
+
+The <Link> component in React Router is used to create links within your application that navigate to different routes defined by your router. Here's how the <Link> component works in your Navbar component:
+
+<Link> Component: <Link> is a special component provided by React Router. It's similar to the <a> anchor element in HTML but is specifically designed for use within React applications.
+
+to Attribute: The to attribute specifies the URL path that the link should navigate to when clicked. In your case, to="/", means that clicking the link will navigate to the root URL of your application.
+
+Content: The content of the <Link> component, in this case, {props.title}, represents the text or child elements that will be displayed as the link's content. It could be plain text, a variable, or any other valid React element.
+
+Navigation: When a user clicks on a <Link> component, React Router intercepts the click event and prevents the browser from performing a full page reload. Instead, it updates the URL in the address bar and renders the component associated with the specified route without reloading the entire page.
