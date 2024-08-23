@@ -1,0 +1,17 @@
+We can add meta tags and change the title of the react app page from index.html file
+
+To change the title dynamically use this: if(dark)document.title = "TextUtils - DarkMode" if(light): document.title = "TextUtils - LightMode" 
+
+-> If you want anything in your website to agin and again come in the interface you use setInterval for it.
+
+EG:  const toggleStyle = () => {
+    if(containerStyle.color == 'white'){ //if text color is white
+      setContainerStyle({
+        color: 'black', //initial state
+        backgroundColor: 'white'
+      })
+      setBtnText("Enable Dark Mode")
+      document.title = "TextUtils - LightMode"
+      setInterval = (()=>{
+	document.body.innerHtml = "Kindly download this website"
+),2000} //now this will come to your website interface every 2 seconds to get the attention of the user(but its not a good user experience).
