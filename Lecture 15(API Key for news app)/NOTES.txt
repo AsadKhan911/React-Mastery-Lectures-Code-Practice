@@ -1,0 +1,50 @@
+NOTE: Code in lecture 14 vs file.
+
+How to pass props in class based components?
+ In React, props (short for properties) are a way to pass data from parent to child components. In class-based components, you can access props using this.props. Let me explain with an example:
+
+Suppose you have a parent component (ParentComponent) passing down title and description props to a child component (ChildComponent). Here's how you would utilize those props in the child component:
+
+javascript
+Copy code
+// ParentComponent.js
+import React, { Component } from 'react';
+import ChildComponent from './ChildComponent';
+
+class ParentComponent extends Component {
+  render() {
+    return (
+      <div>
+        {/* Passing props to ChildComponent */}
+        <ChildComponent title="Hello" description="This is a description" />
+      </div>
+    );
+  }
+}
+
+export default ParentComponent;
+Now, let's see how you can access these props in the ChildComponent:
+
+javascript
+Copy code
+// ChildComponent.js
+import React, { Component } from 'react';
+
+class ChildComponent extends Component {
+  render() {
+    // Destructuring props
+    let { title, description } = this.props;
+
+    return (
+      <div>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+    );
+  }
+}
+
+export default ChildComponent;
+In this example, title and description props are passed down from ParentComponent to ChildComponent. Inside ChildComponent, we use this.props to access these props. We can destructure them directly in the component or access them using this.props.title and this.props.description.
+
+So, let { title, description } = this.props; is a way to extract title and description from this.props in a concise manner using object destructuring.

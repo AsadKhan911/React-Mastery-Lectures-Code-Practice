@@ -1,0 +1,94 @@
+NOTE: Code in lecture 14.
+
+State in class based components.
+
+In React, a class-based component is a way to create reusable pieces of your user interface. These components can have what's called "state," which is basically just data that the component keeps track of. State helps manage changes in your component's data over time.
+
+Here's a simple example: (this example will easily explain the concept of state in class based components)
+
+javascript
+Copy code
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    // Here, we define our initial state
+    this.state = {
+      count: 0
+    };
+  }
+
+  // Function to increase the count
+  incrementCount = () => {
+    // Update the state by providing an object that represents the new state
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  // Function to decrease the count
+  decrementCount = () => {
+    // Update the state similarly
+    this.setState({ count: this.state.count - 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Count: {this.state.count}</h1>
+        {/* Buttons to call the increment and decrement functions */}
+        <button onClick={this.incrementCount}>Increment</button>
+        <button onClick={this.decrementCount}>Decrement</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+In this example, we have a Counter component that keeps track of a count. It has a state property count, which starts at 0. We have two methods, incrementCount and decrementCount, which update the count in the state.
+
+The render method is where the JSX (which describes what should be rendered on the screen) is returned. It displays the current count and two buttons. When you click the buttons, it calls the corresponding methods to update the state.
+
+React then automatically re-renders the component with the updated state, so you see the count change on the screen.
+
+-----------> SUPER() Keyword: 
+
+super() is a special keyword that refers to the parent class constructor. When you're inside the constructor of a subclass (a class that extends another class), calling super() lets you call the constructor of the parent class.
+
+Here's an easy explanation:
+
+Imagine you have a family of classes. Each class represents a different member of the family. Let's say you have a Parent class and a Child class that extends Parent.
+
+When a new Child object is created, you might want to make sure that the Parent's constructor is also called, so that the Child object gets all the properties and behaviors of the Parent class.
+
+That's where super() comes in. When you call super() inside the Child class constructor, you're essentially saying, "Hey, run the constructor of my parent class too!"
+
+Here's a simple example:
+
+javascript
+Copy code
+class Parent {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHello() {
+    console.log(`Hello, I'm ${this.name}`);
+  }
+}
+
+class Child extends Parent {
+  constructor(name, age) {
+    // Call the parent class constructor
+    super(name);
+    this.age = age;
+  }
+
+  // Additional method for the child class
+  sayAge() {
+    console.log(`I am ${this.age} years old`);
+  }
+}
+
+const child = new Child("Alice", 8);
+child.sayHello(); // Output: Hello, I'm Alice
+child.sayAge(); // Output: I am 8 years old
