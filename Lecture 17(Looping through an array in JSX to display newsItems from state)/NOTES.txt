@@ -1,0 +1,76 @@
+Why we use this.state instead of state? 
+
+If you were to simply use state instead of this.state inside the class, JavaScript would interpret state as a variable within the local scope of the class, rather than accessing the state property of the class instance.
+
+In this lecture we will use sample news articles to display news but in next lecture we will use fetch API to hit the endpoint to fetch data through the API.
+
+Code in this lecture:
+
+{this.state.articles.map(() => {
+  return (
+    <div className="row">
+      <div className="col-md-4">
+        <NewsItem 
+          title="myTitle" 
+          description="myDesc" 
+          imageUrl="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/QFN2LP43FXCXBD3NJGVHNKRCRQ_size-normalized.jpg&w=1440"
+        />
+      </div>
+    </div>
+  );
+})}
+
+
+Certainly! Let's break down the code you posted. It appears to be a snippet from a React component that is rendering a list of articles. Here's an explanation of each part in a simple manner:
+
+Code Overview
+jsx
+Copy code
+{this.state.articles.map(() => {
+  return (
+    <div className="row">
+      <div className="col-md-4">
+        <NewsItem 
+          title="myTitle" 
+          description="myDesc" 
+          imageUrl="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/QFN2LP43FXCXBD3NJGVHNKRCRQ_size-normalized.jpg&w=1440"
+        />
+      </div>
+    </div>
+  );
+})}
+Detailed Explanation
+this.state.articles.map(() => {...}):
+This is a JavaScript array method called map used in React to render lists. Here, it is being used to iterate over articles stored in the component's state (this.state.articles).
+
+For each article in the array, the map function is executed to generate JSX (the syntax used in React to describe the UI).
+The JSX Inside map:
+
+<div className="row">: This div creates a new row for each article. It's likely part of a CSS framework like Bootstrap, which organizes content in a grid system.
+<div className="col-md-4">: This div specifies that the content should take up 4 columns in a medium-sized grid. It helps in laying out the NewsItem neatly alongside others if more items are added.
+
+<NewsItem ... />: This is a React component (presumably imported earlier in your file), which represents a single news article. You're passing three props to it:
+title: Set to a static string "myTitle".
+
+description: Set to a static string "myDesc".
+
+imageUrl: Set to a static URL. This URL points to an image hosted on the Washington Post's website, specifically formatted for use in the app.
+Additional Notes
+
+Static Data vs. Dynamic Data: The props title, description, and imageUrl are currently static, meaning every NewsItem will have the same title, description, and image. Normally, you might want to use dynamic data from each article in the articles array. This could be done by passing parameters to the function inside map, like:
+jsx
+
+{this.state.articles.map((article) => {
+  return (
+    <div className="row">
+      <div className="col-md-4">
+        <NewsItem 
+          title={article.title} 
+          description={article.description} 
+          imageUrl={article.imageUrl}
+        />
+      </div>
+    </div>
+  );
+})}
+Error Handling and Keys: When using map in React to render a list of components, it's important to provide a unique key prop to each component for React to manage the DOM efficiently and accurately in our case we will use newsUrl.

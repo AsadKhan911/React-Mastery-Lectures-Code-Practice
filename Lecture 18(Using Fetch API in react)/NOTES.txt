@@ -1,0 +1,35 @@
+We use componentDidMount() method to fetch API in this lecture what is it?
+
+
+In React, componentDidMount() is a method that you can use in a class component. This method is called automatically by React right after the component is added to the web page, which is often referred to as "mounting."
+
+Here’s why componentDidMount() is useful and what you can do with it:
+
+Starting AJAX Calls: If your component needs to load data from a server, componentDidMount() is a great place to initiate the network request. This is because the component has already been rendered once without the data, and you can display a loading indicator before the data arrives.
+
+Setting up Subscriptions: If you need to set up a subscription to some external data source or listen to a particular event (like a WebSocket connection or a GPS feed), you can start that subscription in componentDidMount(). It’s important to remember that you should unsubscribe from any subscriptions you create here to prevent memory leaks, and that cleanup should be done in componentWillUnmount().
+
+Accessing the DOM: Sometimes you might need to interact directly with the DOM for integrating third-party libraries, focusing an element, or animations. componentDidMount() is a good place for this because it’s guaranteed that the DOM is fully loaded and accessible.
+
+NOTE: First of all render() will run and after that ComponentDidMount() will run but for additional knowledge constructor() will run before both of them.
+
+CODE IN THIS LECTURE:
+
+constructor()
+    {
+      super();
+      this.state = {
+        articles: [],
+        loading: false
+      }
+    }
+  
+async componentDidMount()
+{
+  let url = 'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cf9e813dfd5e4d368436eca915a0b5bd'
+  let data = await fetch(url)
+  let parseData = await data.json()
+  console.log(parseData)
+  this.setState({articles: parseData.articles}) 
+
+First of all we initialize a state or usko ek object banaegy or use initally empty rkhengy phr componentDidMount() ka use kr k API fetch krengy or state ko update kr articles k ander parseData.articles dal dengy means parseData k ander jo articles hein wo dal dengy simple.

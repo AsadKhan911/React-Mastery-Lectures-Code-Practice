@@ -1,0 +1,92 @@
+NOTE: Code in lecture 14.
+
+
+
+User
+handleNextButton = async () =>
+{  
+  console.log("next")
+  let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cf9e813dfd5e4d368436eca915a0b5bd&page=${this.state.page + 1}`
+  let data = await fetch(url)
+  let parseData = await data.json()
+  console.log(parseData)
+  this.setState({
+    page: this.state.page + 1,
+    articles: parseData.articles
+  })
+  
+}
+QUESTION: My question is if i am updating state directly in the url 'page=${this.state.page + 1}` then why again we are using this.setState() and updating inside thataswell
+
+ChatGPT
+	
+Great question! The key point here is understanding how state updates and asynchronous operations interact in React, and what the best practices are for ensuring consistency and predictability in your application's behavior.
+
+Here's a breakdown of why the pattern you've mentioned is necessary:
+
+1. Asynchronous Nature of setState
+First, it's important to remember that setState in React is asynchronous. When you call this.setState(), React schedules an update to the component's state and subsequently re-renders the component. This means you can't rely on the state being updated immediately after calling this.setState().
+
+2. Incrementing State Correctly
+In your function handleNextButton, you are fetching data based on the next page number:
+
+javascript
+Copy code
+let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cf9e813dfd5e4d368436eca915a0b5bd&page=${this.state.page + 1}`;
+
+Here, you are correctly using this.state.page + 1 to fetch the next set of data. However, this does not change this.state.page. It merely computes a value to insert into the URL for fetching the data. You haven't yet told React that the page number should be increased in the component's state.
+
+3. Updating State After Data Fetch:
+After fetching the data based on the next page number, you then need to update the state to reflect that the page has indeed changed:
+
+javascript
+Copy code
+this.setState({
+  page: this.state.page + 1,
+  articles: parseData.articles
+});
+This code does two things:
+
+It updates the page state to the new page number. This is crucial because your UI likely depends on knowing what the current page is (for rendering page numbers, enabling/disabling navigation buttons, etc.).
+
+It updates the articles state with the new articles fetched from the API.
+
+4. Why Not Update Before Fetching?
+You might wonder: why not increment the page number in the state first, and then use the updated state to make the fetch call? The issue here is the asynchronous nature of setState. If you try to update the state first and then immediately use the updated state value in your fetch call, you might end up using the old state value because the state update has not completed yet.
+
+Better Approach:
+A better pattern is to calculate the next page first, use it for fetching data, and then update the state:
+
+javascript
+Copy code
+handleNextButton = async () => {
+  const nextPage = this.state.page + 1;
+  let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cf9e813dfd5e4d368436eca915a0b5bd&page=${nextPage}`;
+  let data = await fetch(url);
+  let parseData = await data.json();
+  console.log(parseData);
+  this.setState({
+    page: nextPage,
+    articles: parseData.articles
+  });
+}
+This approach ensures that you are using the correct page number for both fetching and updating state, maintaining consistency in your component's behavior.
+
+func based component code for this:
+
+// const handlePreviousButton = async () => {  
+//   const newPage = page - 1;
+//   setPage(newPage)
+//   updateNews()
+//   }
+
+// const handleNextButton = async () => {  
+//   const newPage = page + 1;
+//     setPage(newPage);
+//   updateNews()
+// }
+
+
+
+
+
