@@ -1,0 +1,19 @@
+SPINNER CODE: For spinner we make a seperate component for it.
+
+Secondly we use this logic inside prev and next button functions
+
+handlePreviousButton = async () =>
+{  
+  let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cf9e813dfd5e4d368436eca915a0b5bd&page=${this.state.page - 1} &pageSize=${this.props.pageSize}`
+  this.setState({loading:true})
+  let data = await fetch(url)
+  let parseData = await data.json()
+  this.setState({
+    page: this.state.page - 1,
+    articles: parseData.articles,
+    loading:false
+})
+
+we initialize a state loading and first time we set it to false, and when we fetch any url just after that we set loading=true ,
+And used this logic right after the h2 heading {this.state.loading && <Spinner/>}  {/*spinner will be shown when loading state is true */}
+And content will be hidden when loading is true by this logic         {!this.state.loading && this.state.articles.map((article) => ({}) means jb jb loading false hoga to content dikhana he. Simple otherwise only spinner show hoga.

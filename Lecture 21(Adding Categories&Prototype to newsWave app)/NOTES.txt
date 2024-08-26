@@ -1,0 +1,27 @@
+-> propTypes: These are like a blueprint for your component's props. They allow you to specify the type of data each prop should be. For example, you might expect a prop called name to be a string, or a prop called age to be a number. By defining propTypes, you ensure that your component receives the right kind of data, which can help catch bugs early.
+
+propTypes = {
+  name: PropTypes.string,
+};
+
+-> defaultProps: These are used to provide default values for props in case they're not explicitly passed to the component. It's a way to ensure that your component can still function properly even if certain props are missing.
+
+defaultProps = {
+  name: 'Guest',
+};
+
+CODE WE USED IN THIS LECTURE:
+
+static propTypes = {
+    country: PropTypes.string,
+    page: PropTypes.number,
+    category: PropTypes.string,
+  }
+
+  static defaultProps = {
+    country : 'us',
+    pageSize: 6,
+    category: "health"
+  }
+
+let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=cf9e813dfd5e4d368436eca915a0b5bd&page=1&pageSize=${this.props.pageSize}` //We passed to url props this way , instead of hard coded.

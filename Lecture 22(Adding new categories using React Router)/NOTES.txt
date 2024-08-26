@@ -1,0 +1,46 @@
+import './App.css';
+import Navbar from './components/Navbar';
+import News from './components/News'
+
+import React, { Component } from 'react'
+
+//React Router
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+         <Router>
+        <Navbar/>
+        <Routes>
+          <Route exact path="/" element={<News key="general" pageSize={6} country='us' category='general' />} />
+          <Route exact path="/business" element={<News key="business" pageSize={6} country='us' category='business' />} />
+          <Route exact path="/science" element={<News key="science" pageSize={6} country='us' category='science' />} />
+          <Route exact path="/entertainment" element={<News key="entertainment" pageSize={6} country='us' category='entertainment' />} />
+          <Route exact path="/health" element={<News key="health" pageSize={6} country='us' category='health' />} />
+          <Route exact path="/sports" element={<News key="sports" pageSize={6} country='us' category='sports' />} />
+          <Route exact path="/technology" element={<News key="technology" pageSize={6} country='us' category='technology' />} />
+        </Routes>
+
+        </Router>
+      </div>
+    )
+  }
+}
+when i use this unique key in my news component it solve my issue how?
+ChatGPT
+Adding a unique key to each instance of the News component within your Routes in the App component likely helped resolve the issue where the UI wasn't updating when navigating between different categories.
+
+When you navigate between different routes in React Router, React doesn't unmount and remount components by default. Instead, it reuses the existing component instances whenever possible. This means that if you navigate from one route to another with the same component, React doesn't treat it as a completely new component instance, but rather reuses the existing one.
+
+However, sometimes you want React to treat instances of the same component with different props as distinct. In your case, when you navigate between different category routes, you want React to render a new instance of the News component with updated props for each category.
+
+By providing a unique key prop to each instance of the News component in your Routes, you're effectively telling React that these components are distinct instances, even though they are of the same type. This ensures that React unmounts the previous News component and mounts a new one when navigating between different category routes.
+
+This was the only issue we faced that components were not updating , between routes , so we give a unique key to each News component so that react identify it.
