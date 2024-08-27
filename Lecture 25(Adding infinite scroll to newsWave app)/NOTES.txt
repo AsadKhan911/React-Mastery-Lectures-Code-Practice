@@ -1,0 +1,1 @@
+In this lecture we add a infinite scroll. We add the infinite scroll component from the internet through npm pacakge.

@@ -1,0 +1,13 @@
+React component lifecycle methods are like the various stages a component goes through during its existence. Here's a simplified explanation:
+
+Mounting Phase: Constructor: This is where you initialize your component's state and bind event handlers.
+
+Render: Here, React prepares and renders your component's JSX.
+
+ComponentDidMount: This method is called immediately after the component is rendered on the screen. It's commonly used to fetch data from APIs or set up subscriptions.
+
+Updating Phase:ComponentDidUpdate: This method is invoked whenever the component's props or state change. It's useful for performing side effects after a component updates, like updating the DOM in response to prop or state changes.
+
+Unmounting Phase:ComponentWillUnmount: This method is called just before a component is removed from the DOM. It's used to clean up any resources used by the component, like clearing timers or cancelling network requests.
+
+These are the basic lifecycle methods you'll encounter most often. React provides a few more lifecycle methods for edge cases, but these three are the main ones you'll work with regularly. Understanding when each method is called helps you manage your component's behavior effectively throughout its lifecycle.
