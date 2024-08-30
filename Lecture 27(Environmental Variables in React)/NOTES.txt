@@ -1,0 +1,16 @@
+To use environmental variables in a React application, you typically create a file named .env at the root of your project directory. Inside this file, you can define your environmental variables prefixed with REACT_APP_. For example:
+
+REACT_APP_API_KEY=your_api_key_here
+
+Then, you can access these variables in your React components using process.env.REACT_APP_VARIABLE_NAME.
+
+News.js: &apiKey=${this.props.apiKey}
+
+App.js: apiKey= process.env.REACT_APP_NEWS_API
+render() {
+    return (
+      <div>
+         <Router>
+        <Navbar/>
+        <Routes>
+          <Route exact path="/home" element={<News key="general" apiKey={this.apiKey} pageSize={this.pageSize} country='us' category='general' />} />
