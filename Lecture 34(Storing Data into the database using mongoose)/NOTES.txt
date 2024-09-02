@@ -1,0 +1,21 @@
+Use of app.use(express.json()):
+
+The express.json() middleware in Express.js is used to parse incoming request bodies in JSON format. When included in your application using app.use(express.json()), it instructs Express to automatically parse JSON payloads of incoming requests and make them available in req.body object of your route handlers.
+
+Here's what it does:
+
+Parsing JSON Requests: When a client sends a POST, PUT, or PATCH request with a JSON payload in the request body, Express automatically parses that JSON data into a JavaScript object. This parsed data is then available in the req.body property in your route handler functions.
+
+Example: Let's say a client sends a POST request to your server with the following JSON payload:
+
+{
+  "name": "John",
+  "age": 30
+}
+With express.json() middleware enabled, you can access this data in your route handler like this:
+
+app.post('/users', (req, res) => {
+  console.log(req.body.name); // Output: John
+  console.log(req.body.age);  // Output: 30
+  // You can now use req.body to access the JSON data sent by the client
+});

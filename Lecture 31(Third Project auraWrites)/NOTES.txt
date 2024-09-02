@@ -1,0 +1,7 @@
+The project idea is: I am making a notes application , which allows every user to sign up and then log in to their accounts and store their notes in cloud storage , and they can access them any where they can , and i will store this data in database.
+
+In this project we will make app by concept of MERN Stack.
+
+We will make seperate repo for backend and seperate for frontend.
+
+For this we will type commands:

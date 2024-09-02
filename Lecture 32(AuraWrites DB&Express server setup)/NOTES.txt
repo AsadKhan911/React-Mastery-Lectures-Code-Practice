@@ -1,0 +1,136 @@
+Firs of all we will go into the gitignore folder of backend and remove / from node_module , so that this node module folder will not push on git if we push the code.
+What is mongoose , mongoDB & mongosh?
+
+Mongoose:Think of Mongoose as a helpful tool when you're working with a type of database called MongoDB. MongoDB is a database system that stores data in a format called JSON, which is really flexible and easy for computers to understand. But sometimes, working with MongoDB directly can be a bit tricky because it doesn't have a clear structure like traditional databases.That's where Mongoose comes in! It's like a translator between your JavaScript code and MongoDB. It helps you to design your data models in a clear and organized way, making it easier for you to work with MongoDB in your web applications. With Mongoose, you can define how your data should look, what types it should have, and how it should relate to other pieces of data.So, in simple terms, Mongoose is a tool that makes it easier for developers to work with MongoDB by providing a structured way to define and interact with data.
+
+
+MongoDB Compas:MongoDB Compass is like a fancy map for your MongoDB database. When you're working with a database, it's important to be able to see what's inside, right? Well, MongoDB Compass helps you do just that! It's a visual interface that lets you explore your MongoDB databases, collections, and documents in a user-friendly way.
+
+
+In simpler terms, MongoDB Shell (mongosh) is a command-line interface tool that allows you to interact with MongoDB databases using a JavaScript-based interface. It provides a way for administrators, developers, and database users to perform various tasks such as querying data, managing databases and collections, running administrative commands, and scripting operations directly from the command line.
+
+Think of MongoDB Shell as a tool that lets you talk to your MongoDB database using commands written in JavaScript. It's like having a conversation with your database, where you can ask questions, retrieve information, and perform actions using familiar JavaScript syntax.
+
+STEPS WE FOLLOW TO CONNECT TO MONGO DB:
+
+1). First of all we copy the connection string.
+
+2). We make a seperate file name db.js inside that we write this code:-
+
+const mongoose = require('mongoose');
+const mongoURI = 'mongodb://localhost:27017/';
+
+async function connectToMongo() {
+    try {
+        await mongoose.connect(mongoURI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+    }
+}
+
+module.exports = connectToMongo;
+
+Explaination:
+
+Import Mongoose:
+
+const mongoose = require('mongoose');
+This line imports the Mongoose library into the module. It allows you to use Mongoose's functionalities for interacting with MongoDB.
+
+MongoDB URI:
+
+const mongoURI = 'mongodb://localhost:27017/';
+This line declares a constant named mongoURI which stores the URI (Uniform Resource Identifier) for connecting to the MongoDB database. In this case, it's a URI pointing to the local MongoDB server running on port 27017.
+
+Asynchronous Function to Connect to MongoDB:
+
+async function connectToMongo() {
+    try {
+        await mongoose.connect(mongoURI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+    }
+}
+This code defines an asynchronous function named connectToMongo. Inside the function, it tries to connect to the MongoDB database specified by the mongoURI using mongoose.connect(). The await keyword ensures that the code waits for the connection to be established before proceeding. If the connection is successful, it logs "Connected to MongoDB" to the console. If an error occurs during the connection attempt, it catches the error and logs an error message instead.
+
+Export the Function:
+
+module.exports = connectToMongo;
+This line exports the connectToMongo function, making it available for other modules to import 
+
+3). We make seperate file named index.js,inside that we write this code:
+
+const connectToMongo = require('./db')
+const express = require('express')
+
+connectToMongo()
+
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+Explaination:
+
+Require the Database Connection Module:
+
+const connectToMongo = require('./db');
+This line imports the connectToMongo function from a file named db.js located in the same directory as this script. This function is presumably responsible for establishing a connection to a MongoDB database using Mongoose.
+
+Invoke the Database Connection Function:
+
+connectToMongo();
+This line calls the connectToMongo function imported from the db.js file. It initiates the connection to the MongoDB database.
+
+Import Express Framework:
+
+const express = require('express');
+This line imports the Express.js framework, which is used for building web applications and APIs in Node.js.
+
+Create an Express Application Instance:
+
+const app = express();
+This line creates an instance of the Express application. The app variable is an instance of the Express class, which represents the web application.
+
+Define the Port Number:
+
+const port = 3000;
+This line defines the port number on which the Express server will listen for incoming HTTP requests. In this case, it's set to port 3000.
+
+Define a Route Handler:
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+This code defines a route handler for the root URL (/) of the web application. When a GET request is made to the root URL, the server responds with the string "Hello World!".
+
+Start the Express Server:
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+This line starts the Express server and tells it to listen for incoming HTTP requests on the specified port (port 3000). When the server starts successfully, it logs a message to the console indicating that the server is listening on the specified port.
+
+explaining line const express = require('express'); in detail:
+
+In the line const app = express();, you're creating an instance of the Express framework, which acts as the foundation for your web application. Express is a Node.js framework that simplifies the process of building web applications and APIs by providing a set of robust features and utilities.
+
+Here's what's happening:
+
+Creating an Instance: When you call express(), you're invoking a function provided by the Express framework. This function returns a new instance of the Express application.
+
+Storing the Instance: You're storing this instance in a variable named app. This variable (app) is essentially an object that represents your web application.
+
+Using the Express Instance: This app object has various methods and properties that you can use to configure your web application. For example, you can use app.get(), app.post(), app.use(), etc., to define routes, middleware, and other functionalities for your application.
+
+Listening for Requests: Eventually, you'll call app.listen() to start your Express server, which will listen for incoming HTTP requests on a specific port.
+
+So, in summary, by creating an instance of the Express application (app), you're setting up the foundation for building and configuring your web application using Express's features and utilities. This instance (app) will handle incoming HTTP requests, define routes, apply middleware, and more, making it the central component of your Express-based web application.

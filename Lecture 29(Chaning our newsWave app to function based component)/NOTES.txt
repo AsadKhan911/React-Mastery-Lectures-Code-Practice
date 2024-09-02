@@ -1,0 +1,75 @@
+STEPS WE HAVE TAKEN TO CONVERT CLASS BASED COMPONENT TO FUNCTIONCAL BASED COMPONENT:
+
+1). import React, { Component } from 'react' Convert To -> import React from 'react'
+
+2). let {title,description,imageUrl,author,newsUrl,date,source} = this.props; Convert To -> let {title,description,imageUrl,author,newsUrl,date,source} = props; 
+
+3). export class news extends Component Convert To -> news = () => {} //convert whole component to an arrow func n start
+
+4). Removes render method from all components.
+
+//NEWS COMPONENT
+
+5). PropTypes
+
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  }
+
+  static defaultProps = {
+    country : 'us',
+    pageSize: 6,
+    category: "health"
+  }
+
+Convert To ->
+
+News.propTypes = {
+  country: PropTypes.string,
+  pageSize: PropTypes.number,
+  category: PropTypes.string,
+}
+
+News.defaultProps = {
+  country : 'us',
+  pageSize: 6,
+  category: "health"
+} //write at the end with functionName.
+
+6). constructor(props) //STATES
+    {
+      super(props);
+      this.state = {
+        articles: [],
+        loading: true,
+        page: 1,
+        totalResults: 0
+      }
+
+Convert To ->
+
+ const [articles ,setArticles] = useState([])
+  const[loading,setLoading] = useState(true)
+  const[page,setPage] = useState(1)
+  const[totalResults,setTotalResults] = useState(0)
+
+7). converted this.props.something to props.something //JUST REMOVE this.
+
+8). this.setState({articles: parseData.articles,
+              totalResults: parseData.totalResults,
+                 loading: false
+                }) 
+Convert To ->
+
+setArticles(parseData.articles);
+  setTotalResults(parseData.totalResults)
+  setLoading(false)
+
+APP.JS:
+
+Variable Declaration: In JavaScript, when you're declaring variables within a functional component, you need to use the const, let, or var keyword to declare them. In your component, you're trying to assign values to pageSize and apiKey directly without declaring them. To fix this, you can declare them using const or let.
+
+Other things are same which we discuss above + also in spinner & navBar component all things are changed which we described above.
+

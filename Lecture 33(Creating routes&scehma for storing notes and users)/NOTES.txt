@@ -1,0 +1,89 @@
+In this lecture we totally worked on our backend folder , and we create routes and scehmas.
+
+In this lecture we structred our backend in the way , we first make a seperate folder named 'models' in which we have scehmas , and the second folder named 'routes' in which we have data for a specific route path, which we described in index.js file.
+
+Scehmas: In backend development, especially when working with databases, a schema is like a blueprint or a template that defines the structure of your data. It outlines the different types of data your application will store, along with the rules and constraints that apply to each type.
+
+Nodemon: Usually, when you're working on a Node.js project, you make changes to your code and then manually stop and restart the server to see those changes take effect. Nodemon saves you from this manual process by monitoring the files in your project. When it detects any changes, it automatically restarts the server for you, so you can see the updates without having to stop and start the server yourself. This makes the development process smoother and more efficient.
+
+Think of it like designing a form for collecting information. The form has fields for the user to fill out, and each field has a specific type (e.g., text, number, date) and possibly validation rules (e.g., required, minimum length). Similarly, a schema defines the fields (properties) that each record (document, row) in your database should have, along with their types and any constraints.
+
+Example (code we done in this lecture): 
+
+const NotesSchema = new Schema({
+   title:{
+    type: String,
+    required: true
+   },
+   description:{
+    type: String,
+   },
+   tag:{
+    type: String,
+   },
+   date:{
+    type: Date,
+    default: Date.now
+   },
+
+  });
+
+Routes: In backend programming, routes are a fundamental concept. They essentially define how your server responds to client requests. When a client makes a request to your server, it needs to know what to do with that request. Routes help organize your server's logic by defining specific actions for different types of requests (e.g., GET, POST, PUT, DELETE) and URLs.
+
+Imagine you're building a website for a bookstore. You might have different pages or endpoints for viewing books, adding books to a cart, checking out, etc. Each of these pages or functionalities corresponds to a different route on your server.
+
+Index.js:
+const connectToMongo = require('./db')
+const express = require('express')
+
+connectToMongo()
+
+const app = express()
+const port = 3000
+
+//Available routes
+
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/notes', require('./routes/notes'))
+
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`)
+})
+
+Explaination:
+
+const connectToMongo = require('./db');
+const express = require('express');
+This code imports the necessary modules for the application: connectToMongo from a file named db.js, and the express framework.
+
+Connect to MongoDB:
+connectToMongo();
+
+This line invokes a function connectToMongo, presumably defined in the db.js file, to establish a connection to a MongoDB database.
+
+Create Express App:
+const app = express();
+
+This line creates an instance of the Express application, which represents your web server.
+
+Define Port:
+const port = 3000;
+
+This line specifies the port on which the server will listen for incoming HTTP requests. In this case, the server will listen on port 3000.
+
+Define Routes:
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/notes', require('./routes/notes'));
+
+Think of app.use() in Express like placing a signpost or a junction on a road. When you use app.use(), you're saying, "Hey, whenever a request comes in with a specific path or URL, I want you to divert it to this specific piece of code."
+
+-> The first argument is the path , and the second argument is the file , which contains the code to show as a response.
+
+Start Server:
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
+});
+
+This line starts the Express server, instructing it to listen for incoming requests on the specified port (in this case, port 3000).
+When the server starts listening, it executes the callback function, which logs a message indicating that the server is running and specifies the URL (http://localhost:3000) where it can be accessed.
+
