@@ -1,0 +1,45 @@
+In this lecture we make an endpoint for login. Just like we made for Create User:
+
+router.post('/login' , 
+        body('password' , 'Password cannot be blank').exists(),
+        body('email', 'Enter a valid email').isEmail(), //first we validate , email and password using express validator just like we did in create user.
+        
+       async (req , res) => { //then an async function with request and response parameter
+
+        const errors = validationResult(req);
+            //if there are error return error with status
+            if (!errors.isEmpty()) {
+              return res.status(400).json({ errors: errors.array() }); //if any errors in the parameters , show error
+            }
+        
+        const {email,password} = req.body; //picking out email and password from request.body , means retrieving email and password which user enters , request.body means when we make a request in thunder client , we write parameters in thunder client's body , from there we are retrieving.
+
+        //Autenticating email
+        try {
+          let user = await Users.findOne({email}) The findOne function in MongoDB is used to retrieve a single document from a collection that matches a given query criteria. 
+          if(!user)
+            {
+              return res.status(400).json({error:"Please enter correct email or password"})
+            }
+          
+            const comparePassword = await bcrypt.compare(password,user.password) //For password , we are comparing the entered password , hashed password(user.password)
+
+            if(!comparePassword)
+              {
+                return res.status(400).json({error:"Please enter correct email or password"})
+              }
+              //else
+              const payLoad =  {
+                user:{
+                  id: user.id //sending user id because each user has a unique id in mongoDB
+                }
+              }
+                var authToken = jwt.sign(payLoad , JWT_SECRET); 
+                res.json({authToken}) //sending payLoad(that contains user id , and then sending authToken as a json response 
+
+
+        } catch (error) {
+          console.log(error.message)
+          res.status(500).send("Internal server error occoured")
+      }
+})

@@ -1,0 +1,54 @@
+To add hashing + salt we will install Nodejs pacakge for it:
+
+Steps:
+
+1). In terminal type npm install bcryptjs
+
+2). var bcrypt = require('bcryptjs');
+
+3). const salt = await bcrypt.genSalt(10)
+      const securePassword = await bcrypt.hash(req.body.password , salt)
+
+First of all with the help of bcrypt package we generate a salt of 10 digit string.
+Then we use bcrypt.hash() function to hash the password , in it we give one arugument which is user's password and add the generated salt to it , and both will be hashed and given to the password input in the object
+
+ user = await Users.create({
+      name: req.body.name,
+      password: securePassword,
+})
+
+
+--> What is JsonWeb Token?
+
+A JSON Web Token (JWT) is like a digital passport. It's a secure way to store and transmit information between parties. It's made up of three parts: a header, a payload, and a signature. The header and payload contain information, and the signature verifies that the information hasn't been changed.
+
+JWTs are often used for things like logging into websites or apps. Once you log in, the server gives you a JWT. You can then use this JWT to prove who you are and access different parts of the website or app without logging in again. It's safe because only the server can create or change a JWT.
+
+First-time Login:
+
+The user enters their username and password.
+
+The server verifies these credentials.
+
+If the credentials are correct, the server creates a JWT containing information about the user (like user ID, username, and any other relevant data).
+JWT Issuance:
+
+This JWT is then signed by the server using a secret key.
+
+The signed JWT is sent back to the client (e.g., browser or mobile app) as part of the login response.
+
+Client-side Storage:
+
+The client typically stores this JWT, often in local storage or a cookie.
+
+Server-side Verification:
+
+When the server receives a request with a JWT, it verifies the token's signature using the secret key.
+It also checks the expiration time (if set) to ensure the token is still valid.
+
+Automatic Login:
+
+As long as the JWT is valid and hasn't expired, the user remains authenticated. This means they don't have to enter their username and password again for subsequent requests.
+The JWT allows the server to recognize the user and provide access to their resources based on the claims (like user ID, role, etc.) stored in the token.
+
+Verify: We can verify the token using jwt.verifty() method.

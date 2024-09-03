@@ -1,0 +1,40 @@
+fetchuser.js:
+
+const jwt = require('jsonwebtoken') //We will import jwt token
+const JWT_SECRET = "secretJwtCode"; //Secret code for jwt
+
+
+const fetchuser = (req , res , next) => { //req,res,next function , rest of the function is same as in express (express function jese hota h)
+    //Get the user from the jwt token and add id to req object
+    const token = req.header('auth-token') //Retrieving the Token from header of the thunderclient request file
+    if(!token){
+        res.status(401).send({error: "Please authenticate using a valid token"})
+    }
+
+    try { //if token is valid
+        const data = jwt.verify(token,JWT_SECRET) //storing verify result of token , passing token which we retrieve from req.header and JWT_SECRET, these two commands are compulsory to verify the jwt
+
+    req.user = data.user //assigning data of the user , to the request by the user
+    next()  //passing control to the route handler in the auth.js file , async (req, res) => {} is function ko control shift hojaega.
+    } catch (error) {
+        res.status(401).send({error: "Please authenticate using a valid token"})
+    }
+}
+
+module.exports = fetchuser;
+
+Auth.js:
+
+router.post('/getUser' , fetchuser ,
+        
+       async (req , res) => {
+        try {
+          userId = req.user.id //The req.user object was set by the fetchuser middleware and contains the authenticated user's information.
+          const user = await Users.findById(userId).select("-password") //Users.findById(userId) is a Mongoose query that finds a user document by its ID..select("-password") excludes the password field from the returned user object for security reasons.
+
+          res.send(user) //Sends the retrieved user object (excluding the password) as the response to the client.
+        } catch (error) {
+          console.error(error.message)
+          req.status(500).send("Internal Server Error")
+        }
+       })
