@@ -1,0 +1,105 @@
+What is express validator?
+
+Express Validator is a middleware for Express.js, which is a popular web framework for Node.js. This middleware simplifies the process of validating data coming from HTTP requests, like validating user input from forms or APIs.
+
+In easy words, think of Express Validator as a set of tools you can use to check if the data you receive from a web client (like a browser or a mobile app) meets certain requirements or rules. For example, you might want to make sure that an email address is in the correct format, or that a password meets certain complexity requirements. Express Validator helps you do this validation easily and securely.
+
+How to setup express validator?
+
+1). Install express-validator:
+First, you need to install the express-validator package. You can do this using npm:
+
+npm install express-validator
+
+2). mport express-validator:
+In your route file (in this case, auth.js), import the necessary functions from express-validator:
+
+const { body, validationResult } = require('express-validator');
+
+3). Set up validation rules:
+Define validation rules for each field using the body() function. For example, to validate the name field:
+
+router.post(
+  '/',
+  body('name', 'Enter a valid name').isLength({ min: 3 }),
+  body('password', 'Enter a valid password').isLength({ min: 5 }),
+  body('email', 'Enter a valid email').isEmail(),
+  (req, res) => {
+    // Route handler logic
+  }
+);
+
+
+4). Handle validation errors:
+After defining validation rules, check for validation errors using validationResult():
+
+const errors = validationResult(req);
+if (!errors.isEmpty()) {
+  return res.status(400).json({ errors: errors.array() });
+}
+
+5).  creating a new user document in the MongoDB database using Mongoose 
+
+Users.create({
+      name: req.body.name,
+      password: req.body.password,
+      email: req.body.email,
+    }).then(Users => res.json(Users))
+})
+
+EXPLAINATION OF IT:
+
+To create a document in MongoDB using Mongoose (assuming you're using Mongoose to interact with MongoDB), you typically define a model that represents the schema of your documents. Then, you use that model's create() method to create new documents. Here's how you can do it:
+
+Define a Mongoose Model:
+
+Define a Mongoose model for your Users collection in ../models/Users.js. This model will define the schema of your documents:
+
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+});
+
+module.exports = mongoose.model('User', userSchema);
+This defines a simple schema with name, email, and password fields, where name and email are required and email must be unique.
+
+Import the Model:
+
+In your route file (auth.js), import the Users model:
+
+const Users = require('../models/Users');
+
+Create a New Document:
+
+Inside your route handler, use the create() method of the Users model to create a new document:
+
+router.post(
+  '/',
+  body('name', 'Enter a valid name').isLength({ min: 3 }),
+  body('password', 'Enter a valid password').isLength({ min: 5 }),
+  body('email', 'Enter a valid email').isEmail(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Create a new user document
+    Users.create({
+      name: req.body.name,
+      password: req.body.password,
+      email: req.body.email,
+    })
+    .then(user => {
+      res.status(201).json({ message: 'User created successfully', user });
+    })
+    .catch(err => {
+      console.error('Error creating user:', err);
+      res.status(500).json({ message: 'Error creating user' });
+    });
+  }
+);
+This code creates a new user document using the data from the request body (req.body). It then sends a response with a success message and the created user object.

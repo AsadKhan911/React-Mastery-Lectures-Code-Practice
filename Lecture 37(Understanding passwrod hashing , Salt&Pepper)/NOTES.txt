@@ -1,0 +1,44 @@
+How hackers can affect our website if we store our passwords in plain text:-
+
+Suppose you are storing your clients passwords in plain text , and one hacker attacks your database and retrieve all the passwords along with the usernames , and the hacker can easily access the accounts and affect them.
+
+1). Alternative (Hashing): Hashing is like using a special blender for data. When you put something into this blender, it mixes everything up in a very specific way and gives you a unique, fixed-size output. No matter how big or small the input is, the output is always the same size.
+Key Features of Hashing
+
+Consistent Output: If you put the same thing into the blender every time, you’ll always get the same output.
+
+Unique Blends: Even a tiny change in the input creates a completely different output.
+
+One-Way Process: Once you blend something, you can't un-blend it to get the original input back.
+
+Why Hashing is Useful
+Storing Passwords Securely: Instead of storing your actual password, websites store the hashed version. So, even if someone gets into the database, they can't see your real password.
+
+Data Integrity: Hashing can check if data has been changed. If you hash a file and get a certain output, you can later hash the file again to see if you get the same output. If the outputs match, the file hasn't been altered.
+
+-> But some hackers are very sharp they have a table of billions of passwords along with their hashes (Known as rainbow table) , when they attacked a hashed database they search for each hashed password in the table , and if the table matches that password with that hash they get into the users account.
+
+2). Alternative (Salting):  If someone knows your password and tries to log in, the system cannot distinguish between you and the attacker based solely on the password. The role of the salt is to protect the password hashes stored in the database, not to differentiate between a legitimate user and an attacker at the moment of login. Let me clarify the purpose of salt and how it helps in overall security:
+
+The Role of Salt
+Unique Hashes: Salting ensures that even if two users have the same password, their hashed passwords will be different. This protects against attackers who gain access to the password database.
+
+Protection Against Rainbow Tables: Rainbow tables are precomputed lists of hash values for common passwords. Salting makes these tables ineffective because each password is combined with a unique salt before hashing, resulting in unique hash values.
+
+Brute-Force Resistance: Salting increases the difficulty and time required for attackers to perform brute-force attacks, as they need to compute the hash for each password attempt combined with the salt.
+
+3). Alternative(Pepper): A pepper is an additional secret value added to a password before it is hashed. It's similar to a salt, but with a key difference: the pepper is kept secret and not stored in the database.
+
+Key Points About Pepper:
+
+Secret: Unlike a salt, which is unique for each password and stored in the database, a pepper is kept secret and is the same for all passwords.
+
+Extra Security: The pepper adds an extra layer of security. Even if an attacker gains access to the database, they won’t know the pepper, making it harder to crack the passwords.
+
+Combined with Salt: Pepper is often used together with salt for maximum security.
+
+How Pepper Enhances Security:
+
+Layered Protection: With salt, each password has a unique hash, preventing attackers from using precomputed hash tables. With pepper, even if the attacker can guess the password and the salt, they still need the secret pepper to generate the correct hash.
+
+Defense in Depth: By storing the pepper separately from the database (e.g., in application code or a secure server environment), you create an additional barrier. Even if one layer (the database) is breached, the attacker still needs access to another layer (where the pepper is stored).
