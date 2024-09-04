@@ -1,0 +1,3 @@
+We make a delete api same like update api logic:
+
+Just we remove fetching from req.body and change the .put request .delete and use Note.findByIdAndDelete instead of update

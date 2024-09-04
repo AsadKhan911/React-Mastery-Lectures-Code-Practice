@@ -1,0 +1,44 @@
+In this lecture we make a route for update a note:
+
+Code with explaination:
+// ROUTE 3: Update a note using: POST "/api/note/updatenote". Login required
+router.put('/updatenote/:id', fetchuser , async (req, res) => { //we use put request + we also give id with the url of the note to be updated
+    const {title,description,tag} = req.body; //we fetch title,desc and tag from the req.body
+    //Create a new note object
+    const newNote = {} //Firstly we will make empty object , and add things in it by checking through ifs below
+    if(title){ //agar title he note me to newNote.title = title means newNote me ek object banao title or usme title daldo jo fetch kia tha destructing k through
+        newNote.title = title //if title is with the request , add in the object
+    }
+    if(description){ //same with description
+        newNote.description = description //if title is with the request , add in the object
+    }
+    if(tag){ //same with tag
+        newNote.tag = tag //if title is with the request , add in the object
+    }
+
+    //Find the note to be updated an update it!
+    let note = await Note.findById(req.params.id); //req k paramemters me jo id h wo note var ma ajaegi ,req.params.id refers to the id parameter in the URL of the 							incoming request.
+    if(!note){
+        return res.status(401).send("Note Found") //agar is id se koi note na hua to not found show krdo
+    }
+    if(note.user.toString() !== req.user.id){ //Checks if the user requesting the update owns the note. note jis user ka h or jis user ne req ki h uski id
+        return res.status(401).send("Not Allowed")
+    }
+
+    note = await Note.findByIdAndUpdate(req.params.id , {$set:newNote} , {new:true}) //If the note exists and the user is authorized, updates the note with newNote 												using findByIdAndUpdate. The {new: true} option returns the updated note.
+    res.json({note})
+
+})
+
+
+//The expression (note.user.toString() !== req.user.id) is used to check if the user who is trying to update the note is the same user who created the note. Let's break it down:
+
+note.user.toString():
+
+note is the note document retrieved from the database.
+note.user refers to the user ID associated with the note (usually a reference to the user who created the note).
+toString() converts this user ID to a string. This is necessary because note.user might be an object (like a Mongoose ObjectId), and we want to compare it as a string.
+req.user.id:
+
+req.user is an object that typically contains information about the authenticated user. This object is usually populated by the fetchuser middleware.
+req.user.id is the ID of the authenticated user making the request.
