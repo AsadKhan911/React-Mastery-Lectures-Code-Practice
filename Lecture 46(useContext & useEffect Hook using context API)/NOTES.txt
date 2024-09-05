@@ -1,0 +1,123 @@
+In this code we used context API:
+
+-> First of all we make a seperate folder named context and inside that we make a folder named notes.
+
+-> Second inside notes folder first file we made is NoteContext and write this code below:
+
+import { createContext } from "react"; //imported createContext from react
+ 
+const noteContext = createContext(); //define a variable and make it a context
+
+export default noteContext; // and export it, in this file if we are making any context we have to write just these 3 lines.
+
+-> Second file we made in notes folder is NoteState in which we define our whole state to be used , code below:
+
+import NoteContext from "./NoteContext"; //import NoteContext file
+
+const noteState = (props) => {
+
+const state = { //decalre and define state
+    "name":"Asad",
+    "class":"6A"
+}
+
+return (
+    <NoteContext.Provider value={state}> //this is the syntax of context API means we will pass those values which have to be used in other file when they 						      access this context,for now we are using only state so passing only state
+    {props.children}
+    </NoteContext.Provider>
+)
+}
+
+export default noteState; //export noteState
+
+-> Third now we have to use this context in App.js file so that this context is accessible by every children.
+
+ return (
+    <>
+    <NoteState>
+    <Router>
+        <Navbar/>
+        <div className="container my-3">
+          <Routes>
+            <Route exact path="/about" element={<About/>} />
+            <Route exact path="/home" element={<Home/>} />
+          </Routes>
+        </div>
+      </Router>
+      </NoteState>
+
+This means NoteState k ander jo jo b component wrap hogyaa h wo is context ko access kr skta h.
+
+-> Now we have to use this context in About.js component.
+
+import React from "react";
+import { useContext } from "react";
+import noteContext from "../context/notes/NoteContext"; //remember when we are using we have to import context file(3 lines file) not state file,or jis name sa export 							kia h context file me means usme noteContext ka n small tha to export wala name consider hoga hmesha
+import { useEffect } from "react";
+
+const About = () => {
+    const a = useContext(noteContext) //we declare and define 'a' to be useContext which is noteContext
+
+    return (
+        <div>
+            My name is {a.name} //here it will display Asad,as simple as it is.
+        </div>
+    )
+}
+
+export default About 
+
+-> Now we will move forward to useEffect Hook:
+
+useEffect is commonly used for asynchronous operations such as calling APIs, fetching data, or performing side effects that should occur outside of the render process. It is same like componentDidMount() we used in class based component in functional component we used useEffect() for such conditions.
+
+import { useState } from "react";
+import NoteContext from "./NoteContext";
+
+const noteState = (props) => {
+
+const s1 = {
+    "name":"Asad",
+    "class":"6A"
+}
+const [state , setState] = useState(s1) //we are using now useState
+const update = () => { //and a update function to update the state
+    setTimeout(() => {
+        setState({
+            "name":"Khan",
+            "class":"7A"
+        })
+    }, 1000);
+}
+return (
+    <NoteContext.Provider value={{state , update}}> //and passing {state:state , update:update} if we write this {{state,update}} it means same. passing function aswel
+    {props.children}
+    </NoteContext.Provider>
+)
+}
+
+export default noteState;
+
+In NoteState we updated this code highlighted with comments.
+
+-> Updated code of About.js:
+
+import React from "react";
+import { useContext } from "react";
+import noteContext from "../context/notes/NoteContext";
+import { useEffect } from "react";
+
+const About = () => {
+    const a = useContext(noteContext)
+
+    useEffect(()=>{ //useEffect is used because first the actual code will run and after 1 sec update will appear.
+        a.update()
+    } , [])
+    return (
+        <div>
+            My name is {a.state.name} //and it will change Asad to Khan after 1 second.
+        </div>
+    )
+}
+
+export default About

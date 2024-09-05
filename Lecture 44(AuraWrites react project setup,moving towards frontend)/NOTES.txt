@@ -1,0 +1,10 @@
+In this lecture we are transferring to front end side:
+
+First of all we install two packages:
+
+1). npm i react-router-dom: For setting the react router we already learned previously.
+2). npm i concurrently: It help us to run backend(nodemon) and frontend(react app) at the same time in same terminal so that we can easily run both and see results.
+
+-> After that we put this thing in our create-react-app packet.json file script section ("both": "concurrently \"npm run start\" \"nodemon backend/index.js\"")
+
+-> Now we can use command npm run both and both servers will start.
