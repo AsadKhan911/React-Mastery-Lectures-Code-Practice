@@ -1,0 +1,71 @@
+In this lecture we hard code the notes in the NoteState file:
+
+import { useState } from "react";
+import NoteContext from "./NoteContext";
+
+const noteState = (props) => {
+
+const notesInitial = [ //hardcoded notes array
+        {
+          "_id": "664b3621ae7ba61a91ff8127",
+          "user": "6649444db0fe84a5c2bddf54",
+          "title": "My updated title third time",
+          "description": "This is my updated desc",
+          "tag": "Private updated note",
+          "date": "2024-05-20T11:38:09.974Z",
+          "__v": 0
+        },
+        {
+          "_id": "665462e24f0e95958ad8352a",
+          "user": "6649444db0fe84a5c2bddf54",
+          "title": "My title",
+          "description": "This is my title jee",
+          "tag": "Public note",
+          "date": "2024-05-27T10:39:30.217Z",
+          "__v": 0
+        }
+      ]
+    const [notes,setNotes] = useState(notesInitial) //we are using useState
+return (
+    <NoteContext.Provider value={{notes ,setNotes}}> //passing notes,setNotes both
+    {props.children}
+    </NoteContext.Provider>
+)
+}
+
+export default noteState;
+
+-> Now in home function we use to display title.
+
+const Home = () => {
+
+  const context = useContext(noteContext) //make a context
+  const {notes,setNotes} = context //const { notes, setNotes } = context; //is a way to extract notes and setNotes from the context object, This makes it easy to use 									  notes and setNotes directly in your component.
+  return (
+    <div className='container'>
+      <h1 className='my-3'>|Add a Note|</h1>
+      <form>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">Title</label>
+          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputPassword1" className="form-label">Description</label>
+          <input type="password" className="form-control" id="exampleInputPassword1" />
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
+
+      <div>
+      <h1 className='my-3'>|Your Notes|</h1>
+     {notes.map((note)=>{ //iterate over each notes
+        return note.title //and return the title
+     })}
+      </div>
+    </div>
+  )
+}
+
+export default Home
+
+

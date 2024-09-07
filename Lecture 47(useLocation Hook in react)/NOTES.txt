@@ -1,0 +1,29 @@
+useLocation is a hook provided by react-router-dom that gives you access to the location object, which represents the current URL in your web application.
+
+Key Properties of the Location Object
+pathname: The path of the URL (e.g., /about).
+
+search: The query string of the URL (e.g., ?name=Asad).
+
+hash: The hash fragment of the URL (e.g., #section1).
+
+state: Any state that was passed with the navigation (e.g., when using history.push with state).
+
+When to Use useLocation
+Accessing the current URL: When you need to read information from the URL, such as the pathname or query parameters.
+
+Conditional rendering: When you want to render different components or elements based on the current URL. //we worked on this thing.
+
+Handling navigation state: When you need to access custom state passed through navigation.
+
+CODE WE DID:(In navbar comp)
+
+import { useLocation } from 'react-router-dom';
+const Navbar = () => {
+
+  let location = useLocation(); 
+
+  <Link className={`nav-link ${location.pathname === '/home' ? 'active': ""}`} aria-current="page" to="/home">Home</Link>
+  <Link className={`nav-link ${location.pathname==='/about' ? "active" : ""}`} aria-current="page" to="/about">About</Link>
+
+This line of code means whenever the pathname of location is /home or /about to unko active class dedo , active class is used to prominent the keywords like wo highlight hojaty hein bootstrap ki class h. In short useLocation hook ka use yehi hota h k ham current url location find krsken.
