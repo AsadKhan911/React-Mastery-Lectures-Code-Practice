@@ -1,0 +1,15 @@
+First of all we write the logic for delete note in noteState file which is a context file:
+
+ //Delete a note
+      const deleteNote = (id) =>{
+      const  newNotes = notes.filter((note)=>{return note._id!==id}) //it will make a seperate array of notes excluding the id matched with deleted note
+        setNotes(newNotes)
+      }
+
+This will take one parameter as id and filter the notes which satisfy the condition that parameter id !== note._id means all notes id.
+
+Noteitem.js:
+
+<i className="fa-solid fa-trash mx-1" onClick={()=>{deleteNote(note._id)}}></i>
+
+This is noteItem file in this file we use context of deleteNote function from noteState and give it a parameter note._id , means it will pass this parameter to contextFunction whose parameter is 'id' and the filter method will filter all the notes and exclude it.

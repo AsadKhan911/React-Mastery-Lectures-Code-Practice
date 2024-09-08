@@ -1,0 +1,1 @@
+In this lecture we just add font awesome delete and edit icons to our note items.
