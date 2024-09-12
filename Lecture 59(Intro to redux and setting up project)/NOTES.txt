@@ -1,0 +1,15 @@
+Redux is a state management library for JavaScript applications, often used with React. It helps manage the state of your application in a more predictable way.
+
+Here's an easy way to understand it:
+
+Imagine your app is a big warehouse. Inside this warehouse, you have many items (pieces of data) that different parts of your app need to access and update. Without a system, it can get chaotic with different parts of your app trying to update data in their own way.
+
+Redux acts like a well-organized storage system for this warehouse:
+
+Store: This is the central place where all your app's data (state) is kept.
+
+Actions: These are like requests to the warehouse, asking it to change the state in some way (e.g., add an item, update an item).
+
+Reducers: These are the rules that tell the warehouse how to handle each action and what changes to make to the state.
+
+By using Redux, you ensure that your app's state is managed consistently, making it easier to debug, test, and understand.
