@@ -1,0 +1,19 @@
+In this lecture we access the state by using useSelector Hook:
+
+The useSelector hook is a feature in React-Redux that allows you to extract data from the Redux store state in a functional component. Here's a simple explanation of how it works:
+
+Access State: The useSelector hook lets your component access the Redux store's state. This means you can read any data that is stored in the Redux store without needing to pass it down through props.
+
+How to Use: You use the useSelector hook by passing it a function. This function takes the entire Redux store state as an argument and returns the piece of state you want. For example:
+
+import { useSelector } from 'react-redux';
+
+const MyComponent = () => {
+  const myData = useSelector((state) => state.myData);
+  return <div>{myData}</div>;
+};
+
+In this example, state.myData is the part of the state that you want to read.
+
+Re-renders: Whenever the part of the state that you are accessing changes, your component will automatically re-render with the new data. This ensures that your component always displays the latest state from the store.
+

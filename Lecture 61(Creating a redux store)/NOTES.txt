@@ -1,0 +1,49 @@
+In this lecture me make a redux store, Steps we follow:
+
+1). First we make a file index.js in state folder and write this code
+
+export * as actionCreators from './action-creators/index'
+
+2). Secondly we make a file store.js in state folder and write this code
+
+import { applyMiddleware, createStore } from "redux";
+import { thunk } from "redux-thunk"; // Correct import
+import reducers from "./reducers";
+
+export const store = createStore(reducers, {}, applyMiddleware(thunk));
+
+3). We wrap <Provider></Provider> in main index.js file of the react-app setup
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
+import { store } from './state/store';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+    <App />
+    </Provider>
+  </React.StrictMode>
+);
+
+reportWebVitals();
+
+By Doing this all of our application has the access to the redux store.
+
+4). Lastly we make a file index.js in the reducers folder and write this code:
+
+import {combineReducers} from 'redux';
+import amountReducer from './amountReducer';
+
+const reducers = combineReducers({
+    amount: amountReducer
+})
+
+export default reducers;
+
+This will combine all of the reducers which we have made in reducers folder.

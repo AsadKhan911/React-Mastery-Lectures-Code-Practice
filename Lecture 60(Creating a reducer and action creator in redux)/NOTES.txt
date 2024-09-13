@@ -1,0 +1,126 @@
+In this code we make a folder state and in state folder we make two seperate folder named 'action-creators' and 'reducers'
+
+-> In action creators we make a file index.js:
+
+export const depositMoney = (amount) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'deposit',
+            payload: amount
+        })
+    }
+}
+export const withdrawMoney = (amount) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'withdraw',
+            payload: amount
+        })
+    }
+}
+
+In this file we export two functions 
+
+How they work?
+
+Action creators are functions that create and return actions. Actions are plain JavaScript objects that describe a change or event that happened in the application.export const depositMoney = (amount) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'deposit',
+            payload: amount
+        });
+    }
+}
+Function: depositMoney takes an amount as an argument.
+
+Return: It returns a function that takes dispatch as an argument.
+
+Dispatch: This inner function calls dispatch with an action object.
+
+Action Object: The action object has two properties:
+
+type: A string 'deposit' indicating the type of action.
+
+payload: The amount passed to depositMoney, which is the data needed for the action.
+
+withdrawMoney Action Creator
+export const withdrawMoney = (amount) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'withdraw',
+            payload: amount
+        });
+    }
+}
+
+Function: withdrawMoney takes an amount as an argument.
+
+Return: It returns a function that takes dispatch as an argument.
+
+Dispatch: This inner function calls dispatch with an action object.
+
+Action Object: The action object has two properties:
+
+type: A string 'withdraw' indicating the type of action.
+
+payload: The amount passed to withdrawMoney, which is the data needed for the action.
+
+-> Secondly we make a file in reducer folder named amountReducer:
+
+Code: export default reducer = (state=0, action) => {
+    if(action.type==='deposit'){
+        return state + action.payload
+    }
+    else if(action.type === 'withdraw'){
+        return state - action.payload
+    }
+    else{
+        return state
+    }
+}
+
+A reducer is a function that takes the current state and an action as arguments and returns a new state. It describes how the state should change based on the action.
+
+Explanation
+Initial State:
+
+state = 0: The initial state is set to 0. This means if no state is provided when the reducer is called, it will default to 0.
+Action Handling:
+
+The reducer function checks the type of the action to determine how to update the state.
+Deposit Action:
+
+if (action.type === 'deposit'): If the action type is 'deposit', it means we want to add money.
+return state + action.payload;: It adds the amount specified in action.payload to the current state and returns the new state.
+Withdraw Action:
+
+else if (action.type === 'withdraw'): If the action type is 'withdraw', it means we want to subtract money.
+return state - action.payload;: It subtracts the amount specified in action.payload from the current state and returns the new state.
+Default Case:
+
+else: If the action type is neither 'deposit' nor 'withdraw', it means the action does not affect this part of the state.
+return state;: It returns the current state unchanged.
+
+How It Works Together
+Initial State:
+
+When the Redux store is first initialized, the state is set to 0 because no initial state is provided.
+Dispatching Actions:
+
+When depositMoney(100) is dispatched, an action { type: 'deposit', payload: 100 } is created.
+The reducer receives this action and updates the state by adding 100 to the current state.// Initial state: 0
+state = 0 + 100; // New state: 100
+
+More Actions:
+
+If another action withdrawMoney(50) is dispatched, an action { type: 'withdraw', payload: 50 } is created.
+The reducer receives this action and updates the state by subtracting 50 from the current state.
+
+// Current state: 100
+state = 100 - 50; // New state: 50
+Unknown Actions:
+
+If an action with an unknown type is dispatched, the state remains unchanged.
+// Current state: 50
+// Action: { type: 'unknown', payload: 20 }
+state = 50; // State remains the same
