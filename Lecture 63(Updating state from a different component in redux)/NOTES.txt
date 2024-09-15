@@ -1,0 +1,29 @@
+In this lecture we update the state using different import functions from redux:
+
+1). useDispatch(): The useDispatch hook is a function provided by React-Redux that allows you to send actions to the Redux store from within your React components. Think of it as a way to tell your app to do something, like updating data or changing the state.
+
+2). Imported actionCreators we make in state folder.
+
+3). bindActionCreators():The bindActionCreators function in Redux is used to simplify the process of dispatching actions. It helps you link your action creators directly to the dispatch function so that you can call your action creators directly without having to manually dispatch each action.
+
+METHOD 1 (Without  bindActionCreators()):-
+
+<button className="mx-2 btn btn-primary" onClick={()=>{dispatch(actionCreators.depositMoney(100))}}>+</button>
+      Add this item to cart
+      <button className="mx-2 btn btn-primary" onClick={()=>{dispatch(actionCreators.withdrawMoney(100))}}>-</button> Without BAC we have to get the function manually.
+
+METHOD 2(With bindActionCreators()):-
+
+const action = bindActionCreators(actionCreators,dispatch)
+<button className="mx-2 btn btn-primary" onClick={()=>{action.depositMoney(100)}}>+</button>
+      Add this item to cart
+      <button className="mx-2 btn btn-primary" onClick={()=>{action.withdrawMoney(100)}}>-</button>  With BAC we dont have to get the functions manually.
+
+METHOD 3(With bindActionCreators() + Destructuring):-
+
+const {withdrawMoney,depositMoney} = bindActionCreators(actionCreators,dispatch) //Destructuring
+
+<button className="mx-2 btn btn-primary" onClick={()=>{withdrawMoney(100)}}>-</button>
+      Add this item to cart
+      <button className="mx-2 btn btn-primary" onClick={()=>{depositMoney(100)}}>+</button>
+    </div> //Now we just have to write the names of the functions with argument
