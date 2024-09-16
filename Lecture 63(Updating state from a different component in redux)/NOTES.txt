@@ -26,4 +26,4 @@ const {withdrawMoney,depositMoney} = bindActionCreators(actionCreators,dispatch)
 <button className="mx-2 btn btn-primary" onClick={()=>{withdrawMoney(100)}}>-</button>
       Add this item to cart
       <button className="mx-2 btn btn-primary" onClick={()=>{depositMoney(100)}}>+</button>
-    </div> //Now we just have to write the names of the functions with argument
+    </div> //Now we just have to write the names of the functions with arguments
